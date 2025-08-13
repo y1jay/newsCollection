@@ -1,0 +1,14 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+spring:
+  datasource:
+    url: jdbc:[Database]://localhost:3306/[스키마]
+    username: [아이디]
+    password: [비밀번호]
+    driver-class-name: [JDBC 드라이버]
