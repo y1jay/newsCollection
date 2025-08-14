@@ -2,9 +2,12 @@ package com.news.auth.responses;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
-public class commonResponse<T>  {
+public class commonResponse<T> {
     int code = 200;
     String message ="Success";
     T data ;
+
 }

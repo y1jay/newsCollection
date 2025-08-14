@@ -2,12 +2,10 @@ package com.news.auth.controllers;
 
 import com.news.auth.services.authService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.news.auth.responses.commonResponse;
 import com.news.auth.dto.userDto;
 
@@ -18,17 +16,10 @@ public class authController {
     @Autowired
     authService authService;
 
-    @GetMapping("/join")
-    public String JoinUser(@RequestBody userDto user, HttpServletRequest request) {
-        return authService.join(user,request);
+    @PostMapping("/join")
+    public Object JoinUser( @Valid @RequestBody userDto user,HttpServletRequest request) {
+        System.out.println("test!!");
+     return  authService.join(user,request);
     }
 }
-//    @PostMapping("/login")
-//    public SingleReponse<User> Loginuser(@RequestBody User user,HttpServletRequest request){
-//        return userService.Login(user,request);
-//    }
-//
-//    @PostMapping("/reward")
-//    public CommonResponse rewarding(@RequestBody Integer idx,@RequestBody Integer type, HttpServletRequest request){
-//        return userService.Reward(idx,type,request);
-//    }
+
