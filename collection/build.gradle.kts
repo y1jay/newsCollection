@@ -25,12 +25,22 @@ repositories {
 
 dependencies {
 	implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.5")
+	implementation ("com.querydsl:querydsl-apt:5.0.0:jakarta")
+	implementation ("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
 	compileOnly("org.projectlombok:lombok")
 	runtimeOnly("com.mysql:mysql-connector-j")
 	annotationProcessor("org.projectlombok:lombok")
+	//Jakarta 설정 어노테이션에 사용된다.
+	annotationProcessor ("jakarta.annotation:jakarta.annotation-api")
+	annotationProcessor ("jakarta.persistence:jakarta.persistence-api")
+	implementation ("org.springframework.boot:spring-boot-starter-web")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.5")
+	testImplementation("org.springframework.security:spring-security-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+	developmentOnly ("org.springframework.boot:spring-boot-devtools")
+
 }
 
 tasks.withType<Test> {
