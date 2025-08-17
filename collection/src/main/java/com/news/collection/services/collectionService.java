@@ -49,7 +49,7 @@ public class collectionService {
         res.setData(keywordList);
         return res;
     }
-    public keywordDto keywordSelect(Integer uk_idx){
+    private keywordDto keywordSelect(Integer uk_idx){
         return (keywordDto) db.view("collection","keywordSelect",uk_idx);
     }
 
@@ -64,15 +64,7 @@ public class collectionService {
         if(params.getKeyword().isEmpty()){
             params.setKeyword(keyword.getKeyword());
         }
-//        if(!keyword.getUse_yn().equals(params.getUse_yn())){
-//            keyword.setUse_yn(params.getUse_yn());
-//        }
-//        if(!params.getKeyword().isEmpty()&&
-//            !keyword.getKeyword().equals(params.getKeyword())
-//        ){
-//            keyword.setKeyword(params.getKeyword());
-//        }
-//        System.out.println(keyword.getUm_idx()+"@#!@#!@#!@@!#!");
+
         db.update("collection","keywordUpdate",params);
         res.setCode(200);
         res.setMessage("키워드 수정성공");
