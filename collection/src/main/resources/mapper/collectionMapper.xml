@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="collection">
+
+<!-- 키워드 삽입 -->
     <insert id="keywordInsert" parameterType="userKeyword">
         <![CDATA[
         INSERT INTO user_keyword
@@ -20,5 +22,63 @@
         )
         ]]>
     </insert>
+<!--키워드 리스트 조회 -->
+    <select id="keywordListSelect" resultType="userKeyword">
+        <![CDATA[
+        SELECT
+            use_yn
+            ,reg_dt
+            ,keyword
+            ,um_idx
+        FROM user_keyword
+        WHERE 1=1
+        ]]>
+        <if test="um_idx !=null and um_idx !=''">
+            <![CDATA[
+            AND um_idx = #{um_idx}
+            ]]>
+        </if>
+        <if test="keyword != null and keyword !=''">
+            <![CDATA[
+            AND keyword like CONCAT("%",#{keyword},"%")
+            ]]>
+        </if>
+        <![CDATA[
+        LIMIT ${page}, ${size}
+        ]]>
+    </select>
+
+    <select id="keywordSelect" resultType="userKeyword">
+        <![CDATA[
+        SELECT
+            use_yn
+            ,reg_dt
+            ,keyword
+            ,um_idx
+        FROM user_keyword
+        WHERE 1=1
+        AND uk_idx = ${uk_idx}
+        ]]>
+    </select>
+
+    <update id="keywordUpdate" parameterType="userKeywordUpdate">
+        <![CDATA[
+        UPDATE user_keyword
+        SET um_idx = #{um_idx}
+        ]]>
+        <if test="keyword != null and keyword !=''">
+            <![CDATA[
+            ,keyword = #{keyword}
+            ]]>
+        </if>
+        <if test="use_yn != null and use_yn !=''">
+        <![CDATA[
+            ,use_yn = ${use_yn}
+        ]]>
+        </if>
+        <![CDATA[
+        WHERE uk_idx = 1
+        ]]>
+    </update>
 
 </mapper>

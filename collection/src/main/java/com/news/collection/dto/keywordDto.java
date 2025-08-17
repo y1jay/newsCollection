@@ -1,8 +1,11 @@
 package com.news.collection.dto;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -13,9 +16,8 @@ import java.util.Date;
 @Setter
 @Builder
 public class keywordDto {
-    @NotBlank(message = "회원번호가 비어있습니다.")
-    private Long um_idx;
-    private Boolean use_yn;
+    private Integer um_idx;
+    private Boolean use_yn =true;
     @NotBlank(message = "키워드가 비어있습니다.")
     private String keyword;
     private LocalDate reg_dt;

@@ -5,10 +5,8 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class commonResponse<T> {
+public class commonListResponse<T>{
     int code = 200;
-    String message ="Success";
-    T data ;
-
+    String message = "s";
+    List<T> data;
 }
-
