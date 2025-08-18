@@ -1,2 +1,6 @@
-package com.news.batch.libs;public enum url {
+package com.news.batch.libs;
+
+public enum url {
+
+
 }

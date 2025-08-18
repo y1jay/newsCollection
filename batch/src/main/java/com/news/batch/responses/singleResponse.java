@@ -9,6 +9,6 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class singleReponse<T> extends commonResponse {
+public class singleResponse<T> extends commonResponse {
     T data;
 }

@@ -3,8 +3,8 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <typeAlias type="com.news.collection.controllers.collectionController" alias="collectionController"/>
-        <typeAlias type="com.news.collection.dto.keywordDto" alias="userKeyword"/>
-        <typeAlias type="com.news.collection.dto.keywordUpdateDto" alias="userKeywordUpdate"/>
+        <typeAlias type="com.news.batch.controllers.batchController" alias="batchController"/>
+        <typeAlias type="com.news.batch.dto.keywordDto" alias="keyword"/>
+        <typeAlias type="com.news.batch.dto.newsCollectionDto" alias="newsCollection"/>
     </typeAliases>
 </configuration>

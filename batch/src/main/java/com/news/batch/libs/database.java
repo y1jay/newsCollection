@@ -1,6 +1,6 @@
-package com.news.collection.libs;
+package com.news.batch.libs;
 
-//import com.news.auth.dto.userDto;
+import com.news.batch.dto.keywordDto;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -12,19 +12,21 @@ import java.util.List;
 public class database {
     private final SqlSessionTemplate sql;
 
-    public void save(String nameSpace,String queryId,Object params){
-        System.out.println(nameSpace+"."+queryId);
-        System.out.println(params);
-         sql.insert(nameSpace+"."+queryId,params);
+    public void save(String nameSpace, String queryId, Object params) {
+        System.out.println(params + "PARAMS##################");
+        sql.insert(nameSpace + "." + queryId, params);
     }
-    public Object view(String nameSpace,String queryId, Object params){
-        return sql.selectOne(nameSpace+"."+queryId,params);
+
+    public Object view(String nameSpace, String queryId, Object params) {
+        return sql.selectOne(nameSpace + "." + queryId, params);
     }
-    public List<Object> list(String nameSpace,String queryId, Object params){
-        return sql.selectList(nameSpace+"."+queryId,params);
+
+    public List<keywordDto> list(String nameSpace, String queryId, Object params) {
+        return sql.selectList(nameSpace + "." + queryId, params);
     }
-    public void update(String nameSpace,String queryId,Object params){
-        sql.update(nameSpace+"."+queryId,params);
+
+    public void update(String nameSpace, String queryId, Object params) {
+        sql.update(nameSpace + "." + queryId, params);
     }
 
 }

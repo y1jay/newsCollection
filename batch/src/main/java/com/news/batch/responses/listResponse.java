@@ -11,6 +11,6 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class listReponse<T> extends commonResponse {
+public class listResponse<T> extends commonResponse {
     List<T> data;
 }
