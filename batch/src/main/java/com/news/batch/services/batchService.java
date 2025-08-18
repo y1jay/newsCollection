@@ -53,7 +53,7 @@ public class batchService extends apiConfig {
     // 뉴스 데이터 조회
     @Scheduled(fixedDelay = 5000)
     public void test(){
-        System.out.println("Hello CoCo World!");
+        System.out.println("TEST!");
     }
 
     @Scheduled(cron = "0 0 12 * * ?")

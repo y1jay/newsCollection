@@ -6,6 +6,7 @@ import com.news.collection.responses.commonResponse;
 import com.news.collection.responses.listResponse;
 import com.news.collection.responses.singleResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,8 +20,9 @@ import com.news.collection.dto.keywordDto;
 import java.util.List;
 
 @RestController
-@RequestMapping("/collection")
+@RequestMapping("collection")
 @RequiredArgsConstructor
+//@Slf4j
 public class collectionController {
     @Autowired
     collectionService collectionService;
@@ -32,7 +34,8 @@ public class collectionController {
     }
 
     @GetMapping("/keywordList")
-    public listResponse<Object> keywordList(@Valid @RequestParam(defaultValue = "") String keyword, @RequestParam(defaultValue = "") String domain_type, @RequestParam Integer um_idx, @RequestParam Integer page) {
+    public listResponse<Object> keywordList(@RequestParam(defaultValue = "") String keyword, @RequestParam(defaultValue = "") String domain_type,@Valid @RequestParam Integer um_idx,@Valid @RequestParam Integer page) {
+        System.out.println(keyword +domain_type+ "KEYWORD###############");
         return collectionService.keywordList(keyword,domain_type, um_idx, page);
     }
 
@@ -40,8 +43,8 @@ public class collectionController {
     public singleResponse<Object> keywordUpdate(@Valid @RequestBody keywordUpdateDto params) {
         return collectionService.keywordUpdate(params);
     }
-//    @GetMapping("/keyword")
-//    public Object keyword(@RequestParam Integer uk_idx){
-//        return collectionService.keywordSelect(uk_idx);
-//    }
+    @GetMapping("/collectionList")
+    public Object collectionList(@Valid @RequestParam(defaultValue = "") String domain_type, @RequestParam Integer um_idx, @RequestParam Integer page){
+        return collectionService.collectionList(domain_type,um_idx,page);
+    }
 }

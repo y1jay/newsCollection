@@ -13,12 +13,6 @@ java {
 	}
 }
 
-configurations {
-	compileOnly {
-		extendsFrom(configurations.annotationProcessor.get())
-	}
-}
-
 repositories {
 	mavenCentral()
 }
@@ -26,23 +20,16 @@ repositories {
 extra["springCloudVersion"] = "2025.0.0"
 
 dependencies {
-//	implementation("org.springframework.cloud:spring-cloud-starter-gateway-server-webmvc")
-	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
-	implementation("org.springframework.cloud:spring-cloud-starter-gateway")
-	implementation ("org.springdoc:springdoc-openapi-starter-webflux-ui:2.2.0")
-//	compileOnly("org.projectlombok:lombok")
-//	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
-//	annotationProcessor("org.projectlombok:lombok")
+	implementation("org.springframework.boot:spring-boot-starter:3.0.5")
+	implementation ("org.springframework.cloud:spring-cloud-starter-netflix-eureka-server")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
-
 dependencyManagement {
 	imports {
 		mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
 	}
 }
-
 tasks.withType<Test> {
 	useJUnitPlatform()
 }

@@ -85,5 +85,26 @@
         WHERE uk_idx = 1
         ]]>
     </update>
+    <select id="newsCollectionSelect" resultType="newsCollection">
+        <![CDATA[
+        SELECT
+            title
+            ,link
+            ,subject
+            ,reg_dt
+            ,pub_dt
+            ,um_idx
+            ,domain_type
+            ,uk_idx
+        FROM news_collection
+        WHERE um_idx = ${um_idx}
+        ]]>
+        <if test="domain_type != null and domain_type !=''">
+            <![CDATA[
+            AND domain_type = #{domain_type}
+            ]]>
+        </if>
+
+    </select>
 
 </mapper>

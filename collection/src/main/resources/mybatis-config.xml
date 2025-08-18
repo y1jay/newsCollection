@@ -6,5 +6,6 @@
         <typeAlias type="com.news.collection.controllers.collectionController" alias="collectionController"/>
         <typeAlias type="com.news.collection.dto.keywordDto" alias="userKeyword"/>
         <typeAlias type="com.news.collection.dto.keywordUpdateDto" alias="userKeywordUpdate"/>
+        <typeAlias type="com.news.collection.dto.newsCollectionDto" alias="newsCollection"/>
     </typeAliases>
 </configuration>

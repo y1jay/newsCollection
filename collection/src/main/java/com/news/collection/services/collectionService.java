@@ -3,6 +3,7 @@ package com.news.collection.services;
 import com.news.collection.dto.keywordDto;
 import com.news.collection.dto.keywordListDto;
 import com.news.collection.dto.keywordUpdateDto;
+import com.news.collection.dto.newsCollectionDto;
 import com.news.collection.libs.database;
 import com.news.collection.libs.util;
 import com.news.collection.responses.commonResponse;
@@ -57,7 +58,18 @@ public class collectionService {
         list.setData(keywordList);
         return list;
     }
-
+    // 수집 데이터 리스트
+    public listResponse<Object> collectionList( String domain_type, Integer um_idx, Integer page) {
+        newsCollectionDto params = new newsCollectionDto();
+        params.setDomain_type(domain_type);
+        params.setUm_idx(um_idx);
+        params.setSize(10);
+        params.setPage((page - 1) * params.getSize());
+        List<Object> newsCollection = db.list("collection", "newsCollectionSelect", params);
+        list.setMessage("Success");
+        list.setData(newsCollection);
+        return list;
+    }
     private keywordDto keywordSelect(Integer uk_idx) {
         return (keywordDto) db.view("collection", "keywordSelect", uk_idx);
     }
