@@ -8,7 +8,6 @@ import com.news.batch.libs.database;
 import com.news.batch.responses.listResponse;
 import com.news.batch.responses.singleResponse;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.mapping.Environment;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -16,16 +15,14 @@ import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.util.context.Context;
 
-import java.sql.Array;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -44,26 +41,39 @@ public class batchService extends apiConfig {
     database db;
 
     // 도메인 별 키워드 조회
-    public List<keywordDto> keywordList(String domain_type) {
+    private List<keywordDto> keywordList(String domain_type) {
         return db.list("batch", "keywordList", domain_type);
     }
 
+    // 중복 조회
+    private List<keywordDto> duplicate(String title){
+        return db.list("batch","newsCollectionSelect",title);
+    }
+
     // 뉴스 데이터 조회
+    @Scheduled(fixedDelay = 5000)
+    public void test(){
+        System.out.println("Hello CoCo World!");
+    }
+
+    @Scheduled(cron = "0 0 12 * * ?")
     public void NaverApiCall() {
         List<keywordDto> keyword = keywordList("Naver");
         LocalDate now = LocalDate.now();
-
+        if(keyword.isEmpty()){
+            log.info("NOT KEYWORD");
+            return;
+        }
         for (int i = 1; i <= keyword.size(); i++) {
-
             int index = i - 1;
-            log.info(index + "INDEX");
-            log.info(keyword.get(1).getKeyword() + "KEYWORD");
+            int total = 1;
+
             WebClient webClient = WebClient.builder().baseUrl(getNaverUrl()).build();
             Mono<String> response = webClient.get()
                     .uri(uriBuilder ->
                             uriBuilder
                                     .queryParam("query", keyword.get(index).getKeyword())
-                                    .queryParam("display", 10)
+                                    .queryParam("display", 100)
                                     .queryParam("start", 1)
                                     .queryParam("sort", "date")
                                     .build()
@@ -76,13 +86,21 @@ public class batchService extends apiConfig {
             // 파싱
             JSONObject jsonObject = convertStringToJSONObject(response.block());
             JSONArray jsonArr = (JSONArray) jsonObject.get("items");
-
+//            if(total==1){
+//                int webTotal = Integer.parseInt(jsonObject.get("total").toString());
+//                log.info(webTotal+"TOTAL########");
+//                total = 100;
+//            }
             List<newsCollectionDto> dbArr = new ArrayList<newsCollectionDto>();
             for (int j = 1; j <= jsonArr.size(); j++) {
                 int jindex = j - 1;
                 JSONObject data = (JSONObject) jsonArr.get(jindex);
                 newsCollectionDto obj = new newsCollectionDto();
-
+                List<keywordDto> duplicated = duplicate(data.get("title").toString());
+                // 중복 패스
+                if(!duplicated.isEmpty()){
+                    continue;
+                }
                 obj.setTitle(data.get("title").toString());
                 obj.setLink(data.get("link").toString());
                 obj.setSubject(data.get("description").toString());
@@ -93,10 +111,12 @@ public class batchService extends apiConfig {
                 obj.setUk_idx(keyword.get(index).getUk_idx());
                 dbArr.add(obj);
             }
+            // 중복 체크
             HashMap<String, Object> map = new HashMap<String, Object>();
             map.put("dbArr", dbArr);
             log.info(map + "MAP############");
             db.save("batch", "newsCollectionInsert", map);
+
         }
     }
 

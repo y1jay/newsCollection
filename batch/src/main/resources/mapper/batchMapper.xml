@@ -17,6 +17,27 @@
         ]]>
     </select>
 
+    <select id="newsCollectionSelect" resultType="newsCollection">
+        <![CDATA[
+        SELECT
+            title
+            ,link
+            ,subject
+            ,reg_dt
+            ,pub_dt
+            ,um_idx
+            ,domain_type
+            ,uk_idx
+        FROM news_collection
+        WHERE 1=1
+        ]]>
+        <if test="title != null and title !=''">
+            <![CDATA[
+            AND title like CONCAT("%",#{title},"%")
+            ]]>
+        </if>
+    </select>
+
     <insert id="newsCollectionInsert">
         <![CDATA[
         INSERT INTO news_collection
