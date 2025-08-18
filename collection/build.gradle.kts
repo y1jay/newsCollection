@@ -24,6 +24,7 @@ repositories {
 }
 
 dependencies {
+//	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.5")
 	implementation ("com.querydsl:querydsl-apt:5.0.0:jakarta")
 	implementation ("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3")

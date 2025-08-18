@@ -43,11 +43,6 @@
             AND keyword like CONCAT("%",#{keyword},"%")
             ]]>
         </if>
-        <if test="domain_type != null and domain_type !=''">
-            <![CDATA[
-            AND domain_type like CONCAT("%",#{domain_type},"%")
-            ]]>
-        </if>
         <![CDATA[
         LIMIT ${page}, ${size}
         ]]>

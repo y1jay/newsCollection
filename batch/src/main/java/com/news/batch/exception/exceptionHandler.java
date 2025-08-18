@@ -11,17 +11,17 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class exceptionHandler {
-    commonResponse res = new commonResponse();
+    commonResponse<Object> res = new commonResponse<>();
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public commonResponse handleValidationExceptions(MethodArgumentNotValidException ex) {
+    public commonResponse<Object> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
 
         for (FieldError fieldError : ex.getBindingResult().getFieldErrors()) {
             errors.put(fieldError.getField(), fieldError.getDefaultMessage());
             res.setCode(400);
-            res.setMessage(errors.toString());
-//            res.setData(errors);
+            res.setMessage("인자값 오류");
+            res.setData(errors);
         }
         res.setCode(200);
         res.setMessage("Success");

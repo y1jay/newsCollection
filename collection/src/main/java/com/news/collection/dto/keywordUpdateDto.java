@@ -15,5 +15,6 @@ public class keywordUpdateDto {
     Integer uk_idx;
     Boolean use_yn;
     String keyword;
+    String domain_type;
     Integer um_idx;
 }

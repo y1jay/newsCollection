@@ -1,0 +1,21 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+# DB ??
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://ls-47159192c28754e3445812e18a1e26526408e5d5.cdyy6u06m4x3.ap-northeast-2.rds.amazonaws.com:3306/newsCollection?serverTimezone=Asia/Seoul
+    username: dbmasteruser
+    password: sbtmdlqslek3!
+
+# mybatis
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  config-location: classpath:mybatis-config.xml

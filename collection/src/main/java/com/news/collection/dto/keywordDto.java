@@ -20,6 +20,8 @@ public class keywordDto {
     private Boolean use_yn =true;
     @NotBlank(message = "키워드가 비어있습니다.")
     private String keyword;
+    @NotBlank(message = "도메인 타입이 비어있습니다.")
+    private String domain_type;
     private LocalDate reg_dt;
     private String reg_ip;
 
