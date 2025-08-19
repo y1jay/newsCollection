@@ -1,6 +1,6 @@
 # 잘 부탁드립니다
 
-> 뉴스 수집.
+> MSA 기반 뉴스 수집서버.
 
 ![](../header.png)
 
@@ -14,13 +14,25 @@ docker-compose up --build
 
 NotDocker:
 
-<!-- ```sh
-cd gateway_nexon && npm install cd ../auth_nexon && npm install cd ../event_nexon && npm install
+```sh
+cd gateway && ./gradlew build && ./gradlew bootrun
 ```
 
 ```sh
-cd gateway_nexon && npm start cd auth_nexon && npm install cd event_nexon && npm install
-``` -->
+cd eureka && ./gradlew build && ./gradlew bootrun
+```
+
+```sh
+cd auth && ./gradlew build && ./gradlew bootrun
+```
+
+```sh
+cd collection && ./gradlew build && ./gradlew bootrun
+```
+
+```sh
+cd batch && ./gradlew build && ./gradlew bootrun
+```
 
 ## 사용 예제
 
@@ -30,24 +42,30 @@ operator : { user_id : y11 , password : 0531 }<br/> -->
 
 GATEWAY http://localhost:8080/<br/>
 SERVICE collection,auth,batch <br/>
-스웨거 경로 http://localhost:8080/ApiDocument#/<br/>
+
+<!-- 스웨거 경로 http://localhost:8080/ApiDocument#/<br/> -->
 
 ## 흐름도
 
-<!--
-**이벤트 종류**<br/>
-quiz : OX형 퀴즈 <br/>
-rand : 문답형 퀴즈<br/>
+**로그인 POST/auth/join**<br/>
+body:{(String)name:이름,(String)email:이메일,(String)uuid:유니크고유값,(String)join_type:로그인방식} <br/>
+<br/>
 
-**유저**<br/>
-유저 가입(USER) > 등급 부여
+**키워드 등록 POST/collection/keywordInsert**<br/>
+body:{(Integer)um_idx:회원 일련번호,(String)keyword:키워드,(String)domain_type:도메인타입(Naver)} <br/>
+<br/>
 
-**이벤트 등록**<br/>
-이벤트 등록 > 지급 조건 등록(quiz,rand) > 보상 정보 등록 > 아이템 등록
+**키워드 리스트 GET/collection/keywordList**<br/>
+parma:{(String)keyword:키워드,(String)domain_type:도메인타입(Naver),(Integer)um_idx:회원일련번호,(Integer)page:페이지(1,10)} <br/>
+<br/>
 
-**이벤트 실행**<br/>
-유저 : 이벤트 리스트 조회 > 이벤트 실행 1차(문제 제출) <br/> 이벤트 실행 2차(답변) > 성공시 보상요청 조회<br/>
-관리자 : 유저 보상 요청 조회 > 보상 지급 (보상지급은 이벤트 고유번호만 넣으면 일괄처리 됩니다.) -->
+**키워드 수정 PATCH/collection/keywordUpdate**<br/>
+body:{(Integer)um_idx:회원 일련번호,(String)keyword:키워드,(String)domain_type:도메인타입(Naver)} <br/>
+<br/>
+
+**키워드 등록 POST/collection/keywordInsert**<br/>
+body:{(Boolean)use_yn:사용여부,(String)keyword:키워드,(String)domain_type:도메인,(Integer)um_idx:회원 일련번호} <br/>
+<br/>
 
 ## 업데이트 내역
 
@@ -55,10 +73,10 @@ rand : 문답형 퀴즈<br/>
 
 ## Stack
 
-[DB] : MySql
-[Java] : v17
-[Auth] : JWT
-[Spring] : Spring Boot
+[DB] : MySql<br/>
+[Java] : v17<br/>
+[Auth] : JWT<br/>
+[Spring] : Spring Boot<br/>
 [Etc] : MSA & Docker & docker-compose
 
 ## 부가 설명\*\*
