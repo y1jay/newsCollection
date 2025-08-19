@@ -71,7 +71,7 @@ param:{(String)domain_type:도메인,(Integer)um_idx:회원 일련번호,(Intege
 
 ## 업데이트 내역
 
--   1
+-   1 도커 수정 중
 
 ## Stack
 
@@ -86,9 +86,6 @@ param:{(String)domain_type:도메인,(Integer)um_idx:회원 일련번호,(Intege
 
 <br/> 
 스케쥴러는 매일 12시로 설정해놨으나 라우팅도 가능합니다. (POST/batch/apiCall)<br/>
-
-<br/> 
-현재 도커 경로 이슈로 도커실행이 안될 수 있습니다.<br/>
 
 <br/> 
 시큐리티 설정은 개인이슈로 개발하지 못했습니다 ..<br/>

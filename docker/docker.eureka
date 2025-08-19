@@ -1,4 +1,4 @@
 FROM openjdk:17-jdk-slim
 WORKDIR /eureka
-COPY build/libs/*.jar eureka.jar
+COPY eureka/build/libs/*.jar eureka.jar
 ENTRYPOINT ["java", "-jar", "eureka.jar"]

@@ -1,4 +1,4 @@
 FROM openjdk:17-jdk-slim
 WORKDIR /collection
-COPY build/libs/*.jar collection.jar
+COPY collection/build/libs/*.jar collection.jar
 ENTRYPOINT ["java", "-jar", "collection.jar"]
