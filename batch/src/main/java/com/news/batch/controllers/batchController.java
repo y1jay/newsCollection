@@ -15,7 +15,7 @@ public class batchController {
     @Autowired
     batchService batchService;
 
-    @GetMapping("/apiCall")
+    @PostMapping("/apiCall")
     public void apiCalls() {
         batchService.NaverApiCall();
     }

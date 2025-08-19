@@ -11,7 +11,7 @@ import com.news.auth.responses.commonResponse;
 import com.news.auth.dto.userDto;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 public class authController {
     @Autowired

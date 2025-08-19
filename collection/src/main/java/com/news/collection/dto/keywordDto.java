@@ -24,5 +24,4 @@ public class keywordDto {
     private String domain_type;
     private LocalDate reg_dt;
     private String reg_ip;
-
 }
