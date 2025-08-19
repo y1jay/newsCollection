@@ -1,6 +1,8 @@
 package com.news.auth.services;
 
 import com.news.auth.responses.commonResponse;
+import com.news.auth.responses.listResponse;
+import com.news.auth.responses.singleResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,35 +20,33 @@ import java.util.List;
 public class authService {
 
     @Autowired(required = false)
-    commonResponse<Object> res = new commonResponse<>();
+    singleResponse<Object> single = new singleResponse<>();
+
+    @Autowired(required = false)
+    listResponse<Object> list = new listResponse<>();
 
     @Autowired()
     database db;
 
+    private userDto userSelect(String uuid) {
+        return (userDto) db.view("auth", "selectUser", uuid);
+    }
 
-    public commonResponse<Object> join(userDto user, HttpServletRequest request) {
+    public singleResponse<Object> join(userDto user, HttpServletRequest request) {
         String ip = util.getIp(request);
         LocalDate now = LocalDate.now();
-//        System.out.println(now+"NOW DATE@#!@#!@#");
-//            userDto insertUser =
-//                    userDto.builder()
-//                            .join_dt(now)
-//                            .join_ip(ip)
-//                            .join_type(user.getJoin_type())
-//                            .name(user.getName())
-//                            .email(user.getEmail())
-//                            .uuid(user.getUuid())
-//                            .build();
-//
-//            System.out.println(insertUser+"USER@@@@@@@@@@@");
-//            db.save("auth","join",insertUser);
-//            // TODO:  uuid 체크
+        userDto uuidSelect = userSelect(user.getUuid());
+        if (uuidSelect != null) {
+            single.setCode(300);
+            single.setMessage("이미 가입 된 회원");
+            single.setData(null);
+        }
         user.setJoin_dt(now);
         user.setJoin_ip(ip);
         db.save("auth", "join", user);
-        res.setCode(200);
-        res.setMessage("가입 완료");
-        res.setData(user);
-        return res;
+        single.setCode(200);
+        single.setMessage("가입 완료");
+        single.setData(user);
+        return single;
     }
 }

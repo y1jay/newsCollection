@@ -1,5 +1,6 @@
 package com.news.auth.controllers;
 
+import com.news.auth.responses.singleResponse;
 import com.news.auth.services.authService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -17,9 +18,9 @@ public class authController {
     authService authService;
 
     @PostMapping("/join")
-    public Object JoinUser( @Valid @RequestBody userDto user,HttpServletRequest request) {
+    public singleResponse<Object> JoinUser(@Valid @RequestBody userDto user, HttpServletRequest request) {
         System.out.println("test!!");
-     return  authService.join(user,request);
+        return authService.join(user, request);
     }
 }
 

@@ -23,11 +23,16 @@ repositories {
     mavenCentral()
 }
 
+extra["springCloudVersion"] = "2025.0.0"
+
+
 dependencies {
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.5")
     implementation("com.querydsl:querydsl-apt:5.0.0:jakarta")
     implementation("com.googlecode.json-simple:json-simple:1.1.1")
     implementation("org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0")
+    implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
 //	implementation ("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     compileOnly("org.projectlombok:lombok")
@@ -46,6 +51,11 @@ dependencies {
 
 }
 
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+    }
+}
 tasks.withType<Test> {
     useJUnitPlatform()
 }

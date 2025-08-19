@@ -9,6 +9,8 @@ server:
 
 # DB ??
 spring:
+  application:
+    name: batch
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://ls-47159192c28754e3445812e18a1e26526408e5d5.cdyy6u06m4x3.ap-northeast-2.rds.amazonaws.com:3306/newsCollection?serverTimezone=Asia/Seoul
@@ -20,7 +22,14 @@ mybatis:
   mapper-locations: classpath:mapper/**/*.xml
   config-location: classpath:mybatis-config.xml
   log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+
 #naver
 naver:
   api:
