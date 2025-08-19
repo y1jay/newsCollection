@@ -60,11 +60,11 @@ parma:{(String)keyword:키워드,(String)domain_type:도메인타입(Naver),(Int
 <br/>
 
 **키워드 수정 PATCH/collection/keywordUpdate**<br/>
-body:{(Integer)um_idx:회원 일련번호,(String)keyword:키워드,(String)domain_type:도메인타입(Naver)} <br/>
+body:{(Boolean)use_yn:사용여부,(String)keyword:키워드,(String)domain_type:도메인,(Integer)um_idx:회원 일련번호} <br/>
 <br/>
 
-**키워드 등록 POST/collection/keywordInsert**<br/>
-body:{(Boolean)use_yn:사용여부,(String)keyword:키워드,(String)domain_type:도메인,(Integer)um_idx:회원 일련번호} <br/>
+**수집 데이터 리스트 GET/collection/collectionList**<br/>
+param:{(String)domain_type:도메인,(Integer)um_idx:회원 일련번호,(Integer)page:페이지(1,10)} <br/>
 <br/>
 
 ## 업데이트 내역
@@ -73,11 +73,12 @@ body:{(Boolean)use_yn:사용여부,(String)keyword:키워드,(String)domain_type
 
 ## Stack
 
+[Architecture] : MSA<br/>
 [DB] : MySql<br/>
 [Java] : v17<br/>
 [Auth] : JWT<br/>
 [Spring] : Spring Boot<br/>
-[Etc] : MSA & Docker & docker-compose
+[Etc] : Docker & docker-compose
 
 ## 부가 설명\*\*
 
