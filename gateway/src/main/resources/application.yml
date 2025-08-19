@@ -21,15 +21,18 @@ spring:
   cloud:
     gateway:
       routes:
+        - id: auth
+          uri: lb://auth
+          predicates:
+            - Path=/auth/**
+        - id: batch
+          uri: lb://batch
+          predicates:
+            - Path=/batch/**
         - id: collection
           uri: lb://collection
-#          uri: http://localhost:8081
           predicates:
             - Path=/collection/**
-#        - id: coupon
-#          uri: lb://COUPON
-#          predicates:
-#            - Path=/coupon/**
 
 springdoc:
   api-docs:

@@ -11,16 +11,22 @@ import com.news.auth.responses.commonResponse;
 import com.news.auth.dto.userDto;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("auth")
 @RequiredArgsConstructor
 public class authController {
     @Autowired
     authService authService;
+
 
     @PostMapping("/join")
     public singleResponse<Object> JoinUser(@Valid @RequestBody userDto user, HttpServletRequest request) {
         System.out.println("test!!");
         return authService.join(user, request);
     }
+
+//    @GetMapping("/main")
+//    public String mainPage() {
+//        return "main";
+//    }
 }
 

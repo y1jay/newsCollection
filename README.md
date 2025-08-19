@@ -9,6 +9,7 @@
 Docker:
 
 ```sh
+cd gateway && ./gradlew build && cd eureka && ./gradlew build && cd auth && ./gradlew build && cd collection && ./gradlew build && cd batch && ./gradlew build &&
 docker-compose up --build
 ```
 
@@ -40,6 +41,7 @@ cd batch && ./gradlew build && ./gradlew bootrun
 admin : { user_id : nexon , password : 987987 }<br/>
 operator : { user_id : y11 , password : 0531 }<br/> -->
 
+ERD https://www.erdcloud.com/d/D6RJuexXYzZo9bFp8<br/>
 GATEWAY http://localhost:8080/<br/>
 SERVICE collection,auth,batch <br/>
 

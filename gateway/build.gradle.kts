@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.news"
-version = "0.0.1-SNAPSHOT"
+version = "0.1"
 
 java {
 	toolchain {
@@ -25,6 +25,7 @@ repositories {
 
 extra["springCloudVersion"] = "2025.0.0"
 
+fun isAppleSilicon() = System.getProperty("os.name") == "Mac OS X" && System.getProperty("os.arch") == "aarch64"
 dependencies {
 //	implementation("org.springframework.cloud:spring-cloud-starter-gateway-server-webmvc")
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
@@ -35,6 +36,9 @@ dependencies {
 //	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+	if (isAppleSilicon()) {
+		runtimeOnly ("io.netty:netty-resolver-dns-native-macos:4.1.104.Final:osx-aarch_64")
+	}
 }
 
 dependencyManagement {
