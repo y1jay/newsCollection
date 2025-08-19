@@ -24,9 +24,9 @@ public class authController {
         return authService.join(user, request);
     }
 
-//    @GetMapping("/main")
-//    public String mainPage() {
-//        return "main";
-//    }
+    @GetMapping("/main")
+    public String mainPage() {
+        return "main";
+    }
 }
 

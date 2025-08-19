@@ -1,16 +1,15 @@
-networks:
-    app-network:
-        driver: bridge
-
 services:
     gateway:
         build:
             context: .
             dockerfile: docker/docker.gateway
+        container_name: gateway
         ports:
             - "8080:8080"
+        environment:
+            - DISCOVERY_SERVICE_URL=http://discovery-service:8761/eureka/
         networks:
-            - app-network
+            - gateway-serv
         # environment:
         #     - PORT=8080
         #     - AUTH_SERVICE_NAME=AUTH_SERVICE
@@ -26,18 +25,25 @@ services:
         depends_on:
             - auth
             - collection
+            - batch
         # env_file:
         #     - gateway/src/main/resources/application.yml
     eureka:
         build:
             context: .
             dockerfile: docker/docker.eureka
+        container_name: eureka
         ports:
             - "8761:8761"
         networks:
-            - app-network
-        depends_on:
-            - gateway
+            - gateway-serv
+        # depends_on:
+        #     - gateway
+        #     - auth
+        #     - collection
+        #     - batch
+        extra_hosts:
+            - host.docker.internal:host-gateway
         # env_file:
         #     - eureka/src/main/resources/application.yml
 
@@ -45,24 +51,51 @@ services:
         build:
             context: .
             dockerfile: docker/docker.auth
+        container_name: auth
         ports:
             - "8081:8081"
+        environment:
+            - DISCOVERY_SERVICE_URL=http://discovery-service:8761/eureka/
         networks:
-            - app-network
+            - gateway-serv
+        extra_hosts:
+            - host.docker.internal:host-gateway
         # env_file:
         #     - auth/src/main/resources/application.yml
         # environment:
         #     - PORT=8801
         #     - HOST=127.0.0.1
         #     - DB_URL=mongodb+srv://join_nexon_user:987987@joinnexon.ygtkmie.mongodb.net/?retryWrites=true&w=majority&appName=joinNexon
-
+    batch:
+        build:
+            context: .
+            dockerfile: docker/docker.batch
+        container_name: batch
+        environment:
+            - DISCOVERY_SERVICE_URL=http://discovery-service:8761/eureka/
+        ports:
+            - "8082:8082"
+        networks:
+            - gateway-serv
+        extra_hosts:
+            - host.docker.internal:host-gateway
+        # env_file:
+        #     - collection/src/main/resources/application.yml
     collection:
         build:
             context: .
             dockerfile: docker/docker.collection
+        container_name: collection
+        environment:
+            - DISCOVERY_SERVICE_URL=http://discovery-service:8761/eureka/
         ports:
-            - "8082:8082"
+            - "8083:8083"
         networks:
-            - app-network
+            - gateway-serv
+        extra_hosts:
+            - host.docker.internal:host-gateway
         # env_file:
         #     - collection/src/main/resources/application.yml
+networks:
+    gateway-serv:
+        driver: bridge

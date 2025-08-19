@@ -1,0 +1,4 @@
+FROM openjdk:17-jdk-slim
+WORKDIR /batch
+COPY batch/build/libs/*.jar batch.jar
+ENTRYPOINT ["java", "-jar", "batch.jar"]

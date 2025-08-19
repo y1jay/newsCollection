@@ -31,7 +31,7 @@ dependencies {
     implementation("com.querydsl:querydsl-apt:5.0.0:jakarta")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0")
     implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
-    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+//    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("org.springframework.boot:spring-boot-starter-validation")
 //    implementation("org.springframework.boot:spring-boot-starter-security")
 //    testImplementation("org.springframework.security:spring-security-test")
