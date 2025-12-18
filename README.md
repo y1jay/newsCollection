@@ -1,6 +1,8 @@
 
 >  뉴스 수집서버.
 
+Shared DB MSA-Like 아키텍쳐
+
 ![](../header.png)
 
 ## 설치 방법
